@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "15923503385",
+    "firebase_url": "https://learn-gojuon.firebaseio.com",
+    "project_id": "learn-gojuon",
+    "storage_bucket": "learn-gojuon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15923503385:android:6dc0355f0b3ccec7",
+        "android_client_info": {
+          "package_name": "com.bowen.japanesesyllabary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15923503385-kph221jfgapf6edsktppbli9jlbqbrrl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUZANFWlpx1p7F4LqIdEyu__0fZvEt_2o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
