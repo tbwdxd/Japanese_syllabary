@@ -1,9 +1,12 @@
 package com.example.bowen.japanesesyllabary;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,13 +14,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 class list {
     CharSequence[] index;
@@ -53,7 +57,7 @@ class sing{
     }
 }*/
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     public list load = new list();
     public int current = 0;
@@ -77,8 +81,12 @@ public class MainActivity extends ActionBarActivity {
         oldColors =  ED.getTextColors();
         ED.setTextColor(Color.parseColor("#4CAF50"));
         ED.setText("Input Your Answer");
+        String locationProvider = LocationManager.NETWORK_PROVIDER;
+        // Or use LocationManager.GPS_PROVIDER
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);
         AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder().setLocation(lastKnownLocation).build();
         mAdView.loadAd(adRequest);
 
 
@@ -301,7 +309,7 @@ public class MainActivity extends ActionBarActivity {
         computecorre();
     }
     public void initialization_list(){
-       CharSequence[] x ={
+       /*CharSequence[] x ={
                     "あ", "い", "う", "え", "お",
                     "ア", "イ", "ウ", "エ", "オ",
                     "か", "き", "く", "け", "こ",
@@ -344,9 +352,9 @@ public class MainActivity extends ActionBarActivity {
                     "ニャ", "ニュ", "ニョ",
                     "ひゃ", "ひゅ", "ひょ",
                     "ヒャ", "ヒュ", "ヒョ",
-                    "みゃ", "みょ", "みょ",
+                    "みゃ", "みゅ", "みょ",
                     "ミャ", "ミュ", "ミョ",
-                    "りゃ", "りょ", "りょ",
+                    "りゃ", "りゅ", "りょ",
                     "リャ", "リュ", "リョ",
                     "ぎゃ", "ぎゅ", "ぎょ",
                     "ギャ", "ギュ", "ギョ",
@@ -358,9 +366,17 @@ public class MainActivity extends ActionBarActivity {
                     "ビャ", "ビュ", "ビョ",
                     "ぴゃ", "ぴゅ", "ぴょ",
                     "ピャ", "ピュ", "ピュ"
-        };
+        };*/
+        CharSequence[] x ={
+                "あ", "い", "う", "え", "お",
+                "ア", "イ", "ウ", "エ", "オ",
+                "か", "き", "く", "け", "こ"};
        load.index = x;
-       CharSequence[] y = {
+        CharSequence[] y = {
+                "a", "i", "u", "e", "o",
+                "a", "i", "u", "e", "o",
+                "ka", "ki", "ku", "ke", "ko"};
+       /*CharSequence[] y = {
                 "a", "i", "u", "e", "o",
                 "a", "i", "u", "e", "o",
                 "ka", "ki", "ku", "ke", "ko",
@@ -417,7 +433,7 @@ public class MainActivity extends ActionBarActivity {
                 "bya", "byu", "byo",
                 "pya", "pyu", "pyo",
                 "pya", "pyu", "pyo"
-        };
+        };*/
         //keymap = "a","i","u","e","o","k","s","h","t","c","n","m","y","r","w","g","z","j","d","b","p";
         load.pronunciation = y;
         load.correctime = new int[x.length];
@@ -446,16 +462,16 @@ public class MainActivity extends ActionBarActivity {
 
     public void nextletter(){
         if (waitingqueue.size() == 1){//only 1 left in queue
-            if((Integer)waitingqueue.get(0) == 211)//reach to the last char
+            if((Integer)waitingqueue.get(0) > 14)//reach to the last char
                 waitingqueue.set(0,1);//loop over
             int times = (int)waitingqueue.get(0);
             int next = 0;
-            List temp = new ArrayList<Integer>();
+            List temp = new ArrayList<>();
             for (int i =0;i<4;i++)
                 temp.add(0,i+times);
             Collections.shuffle(temp);
             waitingqueue.addAll(0,temp);
-            temp = new ArrayList<Integer>();
+            temp = new ArrayList<>();
             for (int i =0;i<4;i++) {
                 temp.add(0, i + times);
                 next = i + times;
@@ -473,13 +489,13 @@ public class MainActivity extends ActionBarActivity {
 
         }
         //helper for debug tracking the queue
-        /*TextView AA = (TextView)findViewById(R.id.textView5);
+        TextView AA = (TextView)findViewById(R.id.textView5);
         String bb="";
         for (int i=0; i<waitingqueue.size(); i++) {
             String aa = ""+waitingqueue.get(i);
             bb += aa;
         }
-        AA.setText(bb+load.total+"//"+load.correct);*/
+        AA.setText(bb+"//"+load.total+"//"+load.correct);
 
         //Render Text
         TextView currentC = (TextView)findViewById(R.id.textView4);

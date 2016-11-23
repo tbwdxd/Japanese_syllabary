@@ -7,8 +7,8 @@ android {
         applicationId 'com.bowen.japanesesyllabary'
         minSdkVersion 11
         targetSdkVersion 21
-        versionCode 3
-        versionName '1.02'
+        versionCode 7
+        versionName '1.1'
     }
     buildTypes {
         release {
@@ -22,7 +22,9 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.google.android.gms:play-services-ads:9.6.1'
+    compile 'com.android.support:percent:22.2.0'
+
 }
 apply plugin: 'com.google.gms.google-services'
